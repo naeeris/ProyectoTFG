@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ProyectoIntermodularApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(ProyectoIntermodularApplication.class, args);
+        System.out.println("Aplicación Arrancada");
     }
 
 }
