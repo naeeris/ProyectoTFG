@@ -3,10 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>Invoice List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .table thead {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .search-box {
+            max-width: 300px;
+            margin: 10px auto;
+        }
+        .btn-icon {
+            padding: 6px 10px;
+        }
+        i {
+            font-size: 1rem;
+        }
+    </style>
 </head>
 <body>
+<div class="container-fluid mt-5">
+    <div class="card shadow-lg">
+        <div class="card-header text-center bg-primary text-white">
+            <h3>Invoice List</h3>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <a class="btn btn-success" th:href="@{/invoices/form}">
+                    <i class="fa-solid fa-plus"></i> Add Invoice
+                </a>
+                <input type="text" id="searchInput" class="form-control search-box" placeholder="Search invoices...">
+            </div>
+            <table class="table table-striped table-hover table-bordered">
+                <thead class="text-center">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Registration date</th>
+                    <th scope="col">Invoice date</th>
+                    <th scope="col">Supplier</th>
+                    <th scope="col">Invoice number</th>
+                    <th scope="col">Amount</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
+                <tbody id="invoiceTableBody">
+                <tr th:each="invoice: ${invoices}">
+                    <th scope="row" th:text="${invoice.id}"></th>
+                    <td th:text="${invoice.reg_date}"></td>
+                    <td th:text="${invoice.date}"></td>
+                    <td th:text="${invoice.supplier}"></td>
+                    <td th:text="${invoice.number}"></td>
+                    <td th:text="${invoice.amount}"></td>
+                    <td class="text-center">
+                        <a class="btn btn-primary btn-sm btn-icon" th:href="@{/invoices/view/{id}(id=${invoice.id})}">
+                            <i class="fa-solid fa-eye"></i>
+                        </a>
+                        <a class="btn btn-warning btn-sm btn-icon" th:href="@{/invoices/edit/{id}(id=${invoice.id})}">
+                            <i class="fa-solid fa-edit"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm btn-icon" th:href="@{/invoices/delete/{id}(id=${invoice.id})}"
+                           onclick="return confirm('Are you sure you want to delete this invoice?')">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function uploadFile(invoiceId) {
+        let formData = new FormData();
+        let fileInput = document.getElementById("fileInput-" + invoiceId).files[0];
+
+        if (!fileInput) {
+            alert("Please select a PDF file first.");
+            return;
+        }
+
+        formData.append("file", fileInput);
+
+        fetch(`/invoices/upload/${invoiceId}`, {
+            method: "POST",
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("PDF uploaded successfully!");
+                    location.reload();
+                } else {
+                    alert("Error uploading PDF.");
+                }
+            })
+            .catch(error => console.error("Upload error:", error));
+    }
+</script>
+</body>
+</html>
 </body>
 </html>

@@ -20,7 +20,7 @@ public class InvoiceController {
     //Metodo para redireccionar el directorio al listado de facturas
     @GetMapping("/")
     public String index(){
-        return "redirect:/invoices";
+        return "index";
     }
 
     //Metodo para listar todas las facturas registradas
@@ -32,9 +32,9 @@ public class InvoiceController {
     }
 
     //Metodo para mostrar una factura teniendo en cuenta el ID
-    @GetMapping("/invoices/{id}")
+    @GetMapping("/invoices/view/{id}")
     public String findById(Model model, @PathVariable Long id){
-        model.addAttribute("invoice", repository.findById(id));
+        model.addAttribute("invoice", repository.findById(id).get());
         return "invoice-view";
     }
 

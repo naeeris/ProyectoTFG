@@ -2,6 +2,7 @@ package com.example.proyectointermodular.model;
 
 import jakarta.persistence.*;
 
+import java.io.File;
 import java.time.LocalDate;
 
 @Entity
@@ -14,7 +15,7 @@ public class Invoice {
     private Long id;
 
     @Column(name = "invoice_reg_date", nullable = false)
-    private LocalDate reg_date;
+    private LocalDate reg_date = LocalDate.now();
 
     @Column(name = "invoice_date", nullable = false)
     private LocalDate date;
@@ -43,8 +44,6 @@ public class Invoice {
     }
 
     //Generamos todos los Getters y Setters
-
-
     public Long getId() {
         return id;
     }
@@ -94,7 +93,6 @@ public class Invoice {
     }
 
     //Generamos el toString de la clase
-
     @Override
     public String toString() {
         return "Invoice{" +

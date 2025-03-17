@@ -1,0 +1,72 @@
+body {
+    display: flex;
+}
+/* Sidebar */
+#sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #184D64;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+    padding-top: 20px;
+    transition: all 0.3s;
+}
+#sidebar .nav-link {
+    color: white;
+    font-size: 16px;
+}
+#sidebar .nav-link:hover {
+    background: #206D8A;
+}
+#sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* Sidebar oculto */
+.sidebar-collapsed {
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+}
+/* Header */
+#header {
+    position: fixed;
+    top: 0;
+    left: 250px;
+    right: 0;
+    height: 60px;
+    background: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    transition: all 0.3s;
+}
+/* Ajustar header cuando sidebar está oculto */
+.header-expanded {
+    left: 0;
+}
+/* Contenido principal */
+#content {
+    margin-left: 250px;
+    margin-top: 80px;
+    padding: 20px;
+    width: calc(100% - 250px);
+    transition: all 0.3s;
+}
+/* Ajustar contenido cuando sidebar está oculto */
+.content-expanded {
+    margin-left: 0;
+    width: 100%;
+}
+.card-custom {
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}

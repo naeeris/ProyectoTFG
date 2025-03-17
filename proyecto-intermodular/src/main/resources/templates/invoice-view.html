@@ -6,6 +6,51 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
+    <div class="container text-center mt-5">
+        <div class="col-2">
+
+        </div>
+        <div class="col-8">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Data</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row" class="fixed-column">ID</th>
+                <td th:text="${invoice.id}"></td>
+            </tr>
+            <tr>
+                <th scope="row" class="fixed-column">Registration date</th>
+                <td th:text="${invoice.reg_date}"></td>
+            </tr>
+            <tr>
+                <th scope="row" class="fixed-column">Date</th>
+                <td th:text="${invoice.date}"></td>
+            </tr>
+            <tr>
+                <th scope="row" class="fixed-column">Supplier</th>
+                <td th:text="${invoice.supplier}"></td>
+            </tr>
+            <tr>
+                <th scope="row" class="fixed-column">Invoice number</th>
+                <td th:text="${invoice.number}"></td>
+            </tr>
+            <tr>
+                <th scope="row" class="fixed-column">Amount</th>
+                <td th:text="${invoice.amount}"></td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="col-2">
+
+        </div>
+    </div>
+    <a class="btn btn-info" th:href="@{/invoices}">Back</a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

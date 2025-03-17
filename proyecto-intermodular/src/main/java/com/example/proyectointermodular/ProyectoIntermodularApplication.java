@@ -10,6 +10,8 @@ public class ProyectoIntermodularApplication {
 
         SpringApplication.run(ProyectoIntermodularApplication.class, args);
         System.out.println("Aplicación Arrancada");
+
+
     }
 
 }
