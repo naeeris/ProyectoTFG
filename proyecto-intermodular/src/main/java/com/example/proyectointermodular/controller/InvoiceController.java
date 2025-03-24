@@ -15,18 +15,40 @@ public class InvoiceController {
 
     //Metodo que nos permite extraer los datos de la BD
     @Autowired
-    private InvoiceRepository repository;
+    private InvoiceRepository invoiceRepository;
 
-    //Metodo para redireccionar el directorio al listado de facturas
+    /*//Metodo para contar el total de facturas recibidas
     @GetMapping("/")
-    public String index(){
+    public String countInvoices(Model model) {
+        //Para contar el total de facturas
+        long totalInvoices = invoiceRepository.count();
+
+        //Agregar datos al modelo
+        model.addAttribute("totalInvoices", totalInvoices);
+
+        return "index";
+    }*/
+
+    //Metodo para llegar al index e incluir el total de facturas registradas en la BD
+    @GetMapping("/")
+    public String index(Model model){
+        //Para contar el total de facturas
+        long totalInvoices = invoiceRepository.count();
+
+        //Calcular el sumatorio del total de facturas
+        double totalAmount = invoiceRepository.sumTotalAmount();
+
+        //Agregar datos al modelo
+        model.addAttribute("totalInvoices", totalInvoices);
+        model.addAttribute("totalAmount", totalAmount);
+
         return "index";
     }
 
     //Metodo para listar todas las facturas registradas
     @GetMapping("/invoices")
     public String findAll(Model model){
-        model.addAttribute("invoices", repository.findAll());
+        model.addAttribute("invoices", invoiceRepository.findAll());
         return "invoice-list";
 
     }
@@ -34,7 +56,7 @@ public class InvoiceController {
     //Metodo para mostrar una factura teniendo en cuenta el ID
     @GetMapping("/invoices/view/{id}")
     public String findById(Model model, @PathVariable Long id){
-        model.addAttribute("invoice", repository.findById(id).get());
+        model.addAttribute("invoice", invoiceRepository.findById(id).get());
         return "invoice-view";
     }
 
@@ -49,7 +71,7 @@ public class InvoiceController {
     //Metodo para crear una invoice
     @PostMapping("/invoices")
     public String createInvoice(@ModelAttribute Invoice invoice){
-        repository.save(invoice);
+        invoiceRepository.save(invoice);
         return "redirect:/invoices";
     }
 
@@ -57,8 +79,8 @@ public class InvoiceController {
     @GetMapping("/invoices/edit/{id}")
     public String editForm(Model model, @PathVariable Long id){
         //Verificamos que el ID existe en la BD
-        if(repository.existsById(id)){
-            repository.findById(id).ifPresent(invoice -> model.addAttribute("invoice", invoice));
+        if(invoiceRepository.existsById(id)){
+            invoiceRepository.findById(id).ifPresent(invoice -> model.addAttribute("invoice", invoice));
             return "invoice-form";
         }else{
             //Si no encuentra el ID, redirige al formulario vacio para crear una nueva factura
@@ -71,8 +93,8 @@ public class InvoiceController {
     @PostMapping("/invoices/update/{id}")
     public String updateInvoice(@ModelAttribute Invoice updatedInvoice, @PathVariable Long id){
         //Si el ID esta en BD -> actualiza la siguiente info
-        if(repository.existsById(id)){
-            repository.findById(id).ifPresent(invoice -> {
+        if(invoiceRepository.existsById(id)){
+            invoiceRepository.findById(id).ifPresent(invoice -> {
                 //Actualizamos los atributos modificables
                 invoice.setDate(updatedInvoice.getDate());
                 invoice.setSupplier(updatedInvoice.getSupplier());
@@ -80,7 +102,7 @@ public class InvoiceController {
                 invoice.setAmount(updatedInvoice.getAmount());
 
                 //Guardo la info actualizada en la BD
-                repository.save(invoice);
+                invoiceRepository.save(invoice);
             });
 
             return "redirect:/invoices";
@@ -95,8 +117,8 @@ public class InvoiceController {
     //Metodo para eliminar una invoice teneindo en cuenta el ID
     @GetMapping("/invoices/delete/{id}")
     public String deleteById(@PathVariable Long id){
-        repository.findById(id).ifPresent(invoice -> {
-            repository.deleteById(invoice.getId());
+        invoiceRepository.findById(id).ifPresent(invoice -> {
+            invoiceRepository.deleteById(invoice.getId());
         });
 
         return "redirect:/invoices";

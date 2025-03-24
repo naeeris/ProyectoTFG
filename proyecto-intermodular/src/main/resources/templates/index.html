@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+  <!--<link href="css/index.css" rel="stylesheet">-->
   <style>
     body {
       display: flex;
@@ -84,70 +85,60 @@
 </head>
 <body>
 
-<!-- Sidebar -->
-<div id="sidebar" class="d-flex flex-column p-3">
-  <div class="logo text-center">F</div>
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a href="#" class="nav-link"><i class="bi bi-file-earmark-text"></i> Cotizaciones</a>
-    </li>
-    <li class="nav-item">
-      <a href="invoice-list.html" class="nav-link"><i class="bi bi-receipt"></i> Invoices</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link"><i class="bi bi-box"></i> Catálogos</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link"><i class="bi bi-wallet2"></i> Cuentas</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link"><i class="bi bi-bar-chart"></i> Statics</a>
-    </li>
-    <li class="nav-item">
-      <a href="#" class="nav-link"><i class="bi bi-clipboard-check"></i> Contabilidad</a>
-    </li>
-  </ul>
-  <div class="mt-auto text-center p-3">
-    <button id="toggleSidebar" class="btn btn-info w-100">
-      <i class="bi bi-chevron-left"></i> Hide
-    </button>
-  </div>
-</div>
+  <!-- Sidebar -->
+  <div id="sidebar" class="d-flex flex-column p-3">
+    <div class="logo text-center"><a th:href="@{/}">R-Inv</a></div>
+    <ul class="nav flex-column">
 
-<!-- Header -->
-<div id="header">
-  <div>
-    <a href="#" class="text-primary text-decoration-none me-3">+ Invoice</a>
-    <a href="#" class="text-primary text-decoration-none me-3">+ PayRoll</a>
-    <a href="#" class="text-primary text-decoration-none">Consultar</a>
+      <li class="nav-item">
+        <a th:href="@{/invoices}" class="nav-link"><i class="bi bi-receipt"></i> Invoices</a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link"><i class="bi bi-box"></i> Suppliers</a>
+      </li>
+      <li class="nav-item">
+        <a th:href="@{/}" class="nav-link"><i class="bi bi-bar-chart"></i> Statics</a>
+      </li>
+
+    </ul>
+    <div class="mt-auto text-center p-3">
+      <button id="toggleSidebar" class="btn btn-info w-100">
+        <i class="bi bi-chevron-left"></i> Hide
+      </button>
+    </div>
   </div>
-  <div>
-    Facturas restantes: <strong class="text-primary">40</strong>
-    <i class="bi bi-cart3 ms-3"></i>
-    <i class="bi bi-person-circle ms-3"></i>
+
+  <!-- Header -->
+  <div id="header">
+    <div>
+      <a th:href="@{/invoices/form}" class="text-primary text-decoration-none me-3">+ Add Invoice</a>
+      <!--<a href="#" class="text-primary text-decoration-none me-3">+ PayRoll</a>-->
+      <a href="#" class="text-primary text-decoration-none">Consultar</a>
+    </div>
+    <div>
+      <i class="bi bi-person-circle ms-3"></i>
+    </div>
   </div>
-</div>
 
 <!-- Contenido principal -->
 <div id="content">
-  <h2>Consulta tus facturas</h2>
+  <h2>Invoice list</h2>
   <p>Aquí irá el listado de facturas...</p>
 
   <!-- Tarjetas de Resumen -->
   <div class="row">
     <div class="col-md-6">
       <div class="card card-custom">
-        <h5>Detalle de Facturación</h5>
-        <p>Facturas emitidas: <strong>213</strong></p>
-        <p>Facturas recibidas: <strong>195</strong></p>
-        <p>Facturas canceladas: <strong>5</strong></p>
+        <h5>Invoicing Details</h5>
+        <p>Incoming invoices: <strong th:text="${totalInvoices}"></strong></p>
+        <p>Cancelled invoices: <strong>5</strong></p>
       </div>
     </div>
     <div class="col-md-6">
       <div class="card card-custom">
-        <h5>Total de Ingresos y Egresos</h5>
-        <p>Ingresos: <strong class="text-success">$2,585,588.00</strong></p>
-        <p>Egresos: <strong class="text-danger">$541,472.86</strong></p>
+        <h5>Total Invoices and Credits</h5>
+        <p>Invoices: <strong class="text-success" th:text="${totalAmount}"></strong></p>
+        <p>Credits: <strong class="text-danger">$541,472.86</strong></p>
       </div>
     </div>
   </div>

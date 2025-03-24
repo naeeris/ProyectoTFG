@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.io.File;
 import java.time.LocalDate;
 
+//Anotaciones importantes
 @Entity
 @Table(name = "invoices")
 public class Invoice {
@@ -14,6 +15,7 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    //La anotacion @Column no es necesaria pero así indicamos el nombre de la columna
     @Column(name = "invoice_reg_date", nullable = false)
     private LocalDate reg_date = LocalDate.now();
 
