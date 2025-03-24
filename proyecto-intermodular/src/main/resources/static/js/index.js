@@ -1,5 +1,5 @@
 
-document.getElementById("toggleSidebar").addEventListener("click", function() {
+    document.getElementById("toggleSidebar").addEventListener("click", function() {
     let sidebar = document.getElementById("sidebar");
     let content = document.getElementById("content");
     let header = document.getElementById("header");
@@ -12,9 +12,8 @@ document.getElementById("toggleSidebar").addEventListener("click", function() {
 
     // Cambiar icono y texto del botón
     if (sidebar.classList.contains("sidebar-collapsed")) {
-        button.innerHTML = '<i class="bi bi-chevron-right"></i> Mostrar';
-    } else {
-        button.innerHTML = '<i class="bi bi-chevron-left"></i> Ocultar';
-    };
-
+    button.innerHTML = '<i class="bi bi-chevron-right"></i> Show';
+} else {
+    button.innerHTML = '<i class="bi bi-chevron-left"></i> Hide';
+}
 });
